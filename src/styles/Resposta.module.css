@@ -2,12 +2,45 @@
   display: flex;
 }
 
-.conteudoResposta {}
+.conteudoResposta {
+}
 
-.frente {}
+.frente,
+.verso {
+  display: flex;
+}
 
-.letra {}
+.frente {
+  align-items: center;
 
-.valor {}
+  border-radius: 12px;
 
-.verso {}
+  padding: 15px;
+
+  background-color: #fff;
+  color: #000;
+}
+
+.letra {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 20px;
+
+  font-size: 1.3rem;
+  font-weight: 700;
+
+  margin-right: 20px;
+}
+
+.valor {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.verso {
+}
