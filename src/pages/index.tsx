@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Questao from '../components/Questao';
 
@@ -14,13 +14,18 @@ const questaoMock = new QuestaoModel(1, 'Melhor cor?', [
 
 export default function Home() {
   const [questao, setQuestao] = useState(questaoMock);
+  const questaoRef = useRef<QuestaoModel>();
+
+  useEffect(() => {
+    questaoRef.current = questao;
+  }, [questao]);
 
   function respostaFornecida(indice: number) {
     setQuestao(questao.responderCom(indice));
   }
 
   function tempoEsgotado() {
-    if (questao.naoRespondida) {
+    if (questaoRef.current?.naoRespondida) {
       setQuestao(questao.responderCom(-1));
     }
   }
@@ -36,6 +41,7 @@ export default function Home() {
     >
       <Questao
         valor={questao}
+        tempoParaResposta={10}
         respostaFornecida={respostaFornecida}
         tempoEsgotado={tempoEsgotado}
       />

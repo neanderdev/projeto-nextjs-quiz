@@ -15,6 +15,7 @@ const letras = [
 
 interface QuestaoProps {
     valor: QuestaoModel;
+    tempoParaResposta?: number;
     respostaFornecida: (indice: number) => void;
     tempoEsgotado: () => void;
 }
@@ -42,7 +43,7 @@ export default function Questao(props: QuestaoProps) {
             />
 
             <Temporizador
-                duracao={10}
+                duracao={props.tempoParaResposta ?? 10}
                 tempoEsgotado={props.tempoEsgotado}
             />
 
