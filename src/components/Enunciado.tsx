@@ -1,7 +1,7 @@
 import styles from '../styles/Enunciado.module.css';
 
 interface EnunciadoProps {
-    texto: string
+    texto: string;
 }
 
 export default function Enunciado(props: EnunciadoProps) {

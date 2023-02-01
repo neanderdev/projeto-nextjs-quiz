@@ -1,15 +1,23 @@
+import { useState } from 'react';
+
 import Questao from '../components/Questao';
 
 import QuestaoModel from '../model/questao';
 import RespostaModel from '../model/resposta';
 
+const questaoMock = new QuestaoModel(1, 'Melhor cor?', [
+  RespostaModel.errada('Vermelha'),
+  RespostaModel.errada('Verde'),
+  RespostaModel.errada('Laranja'),
+  RespostaModel.certa('Azul'),
+]);
+
 export default function Home() {
-  const questaoTeste = new QuestaoModel(1, 'Melhor cor?', [
-    RespostaModel.errada('Vermelha'),
-    RespostaModel.errada('Verde'),
-    RespostaModel.errada('Laranja'),
-    RespostaModel.certa('Azul'),
-  ]);
+  const [questao, setQuestao] = useState(questaoMock);
+
+  function respostaFornecida(indice: number) {
+    setQuestao(questao.responderCom(indice));
+  }
 
   return (
     <div
@@ -21,7 +29,8 @@ export default function Home() {
       }}
     >
       <Questao
-        valor={questaoTeste}
+        valor={questao}
+        respostaFornecida={respostaFornecida}
       />
     </div>
   )
