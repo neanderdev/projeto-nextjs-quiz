@@ -57,5 +57,25 @@
   font-weight: 700;
 }
 
-.verso {
+.verso > div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 12px;
+}
+
+.certa .valor,
+.errada .valor {
+  font-size: 1.5rem;
+}
+
+.certa {
+  background-color: #2baa6d;
+}
+
+.errada {
+  background-color: #e44a4c;
 }
