@@ -73,6 +73,19 @@ export default class QuestaoModel {
     );
   }
 
+  static criarUsandoObjeto(objeto: QuestaoModel): QuestaoModel {
+    const resposta = objeto.respostas.map((resposta) =>
+      RespostaModel.criarUsandoObjeto(resposta)
+    );
+
+    return new QuestaoModel(
+      objeto.id,
+      objeto.enunciado,
+      resposta,
+      objeto.acertou
+    );
+  }
+
   converterParaObjeto() {
     return {
       id: this.#id,
