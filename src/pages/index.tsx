@@ -13,7 +13,7 @@ const questaoMock = new QuestaoModel(1, 'Melhor cor?', [
   RespostaModel.certa('Azul'),
 ]);
 
-const BASE_URL = 'http://localhost:3000/api';
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 export default function Home() {
   const router = useRouter();
