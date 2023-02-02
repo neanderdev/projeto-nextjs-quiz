@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
 import Questionario from '../components/Questionario';
@@ -15,6 +16,8 @@ const questaoMock = new QuestaoModel(1, 'Melhor cor?', [
 const BASE_URL = 'http://localhost:3000/api';
 
 export default function Home() {
+  const router = useRouter();
+
   const [idsDasQuestoes, setIdsDasQuestoes] = useState<number[]>([]);
   const [questao, setQuestao] = useState<QuestaoModel>(questaoMock);
   const [respostasCertas, setRespostasCerta] = useState(0);
@@ -53,12 +56,42 @@ export default function Home() {
     setRespostasCerta(respostasCertas + (acertou ? 1 : 0));
   }
 
-  function irPraProximoPasso() { }
+  function idDaProximaPergunta() {
+    if (questao) {
+      const proximoIndice = idsDasQuestoes.indexOf(questao.id) + 1;
+
+      return idsDasQuestoes[proximoIndice];
+    }
+  }
+
+  function irPraProximoPasso() {
+    const proximoId = idDaProximaPergunta();
+
+    if (proximoId) {
+      irParaProximaQuestao(proximoId);
+    } else {
+      finalizar();
+    }
+  }
+
+  function irParaProximaQuestao(proximoId: number) {
+    carregarQuestao(proximoId);
+  }
+
+  function finalizar() {
+    router.push({
+      pathname: '/resultado',
+      query: {
+        total: idsDasQuestoes.length,
+        certas: respostasCertas,
+      },
+    });
+  }
 
   return (
     <Questionario
       questao={questao}
-      ultima={true}
+      ultima={idDaProximaPergunta() === undefined}
       questaoRespondida={questaoRespondida}
       irPraProximoPasso={irPraProximoPasso}
     />
